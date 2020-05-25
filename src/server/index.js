@@ -6,7 +6,7 @@ const mockAPIResponse = require('./mockAPI.js');
 const app = express();
 
 // set up of body-parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // cors for cross origin allowance
@@ -42,6 +42,8 @@ textapi.sentiment({
 app.use(express.static('dist'));
 
 console.log(__dirname, '-- dirname');
+console.log(JSON.stringify(mockAPIResponse))
+
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
