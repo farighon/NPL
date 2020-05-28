@@ -1,14 +1,24 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-    flex: 2;
+  flex: 2;
 }
 
 section {
-    max-width: 800px;
-    margin: 50px auto;
+  max-width: 800px;
+  margin: 50px auto;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+}
+
+#results div {
+  padding-bottom: 2em;
+  padding-top: 1em;
 }

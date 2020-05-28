@@ -24,26 +24,9 @@ const textapi = new AYLIENTextAPI({
   application_key: process.env.API_KEY
 });
 
-/*const sentiment = textapi.sentiment({
-  'text': 'I love Fridays'
-}, function(error, response) {
-  if (error == null) {
-    console.log(response)
-  }
-});
-*/
-
-/*textapi.classify({
-  'url': 'http://techcrunch.com/2015/07/16/microsoft-will-never-give-up-on-mobile'
-}, function(error, response) {
-  if (error == null) {
-    console.log(response)
-  }
-})*/
-
 app.use(express.static('dist'));
 
-console.log(__dirname, '-- dirname');
+const tempData = [];
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
@@ -51,35 +34,28 @@ app.get('/', function (req, res) {
 });
 
 app.get('/test', function (req, res) {
-  console.log(req.body, '--req body')
-  //res.send(mockAPIResponse);
-  res.send(req.body)
+  res.send(req.body);
 });
 
-app.get('/sentiment', function(req, res) {
-  console.log('GET in the sentiment in server')
-  console.log(req.query, '-- this is req.query in sentiment in server')
-  console.log(req.body, '-- this is req.body in sentiment in server')
-  //console.log(req, '-- this is req in sentiment in server')
-  //console.log(req)
-  textapi.sentiment({
-    'text': req.query.input
+
+app.post('/addSentimentData', function(req, res) {
+  const newEntry = { text: req.body.text };
+  tempData.push(newEntry);
+});
+
+app.get('/all', function(req, res) {
+  const tempDataLength = tempData.length - 1;
+
+  textapi.classify({
+    'url': tempData[tempDataLength].text
   }, function(error, response) {
-    console.log(response, '-- response in the sentiment')
     if (error == null) {
       console.log(response)
     }
     res.send(response);
   });
 
-})
-
-
-app.post('/addClassifyData', function(req, res) {
-  console.log('post in server')
-  console.log(req.query, 'query')
-  // tempData.push(newEntry);
-})
+});
 
 // designates what port the app will listen to for incoming requests
 const PORT = 8082;

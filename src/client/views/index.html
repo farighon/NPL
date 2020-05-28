@@ -8,18 +8,16 @@
     <body>
 
         <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
+            <div class="page-title">
+              <h1>Quick Analysis!</h1>
             </div>
         </header>
 
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
+                    <span>Enter a link for analysis:</span>
+                    <input id="name" type="text" name="input" value="" placeholder="Name">
                     <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                 </form>
             <section>
@@ -31,8 +29,17 @@
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>Article analysis (using Aylien API) Inc.</p>
         </footer>
 
+        <script>
+          // check that service workers are supported
+          if ('serviceWorker' in navigator) {
+            // use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/service-worker.js');
+            });
+          }
+        </script>
     </body>
 </html>
